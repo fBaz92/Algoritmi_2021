@@ -73,4 +73,41 @@ def piastrellature_memo(n, memo = {0:1,1:1,2:2}):
         memo[n] = piastrellature_memo(n-1, memo) + piastrellature_memo(n-2, memo)
         return memo[n]
         
+   
+
+def print_out_piastrellature(n, history = ""):
     
+    if n == 0:
+        print(history)
+    elif n == 1:
+        print("[]" + history)
+    else:
+        print_out_piastrellature(n-1, "[]" + history) 
+        print_out_piastrellature(n-2, "[--]"+ history)
+
+
+
+
+
+"""
+def print_out_piastrellature_memo(n, history = "", memo={}, conteggio = 0):
+    
+    if n == 0:
+        for key in memo[n].keys():    
+            print(memo[n][key])
+    elif n == 1:
+        for key in memo[n-1].keys():    
+            print("[]" + memo[n-1][key])
+    else:
+        
+        memo[n-1] = {}
+        for key in range(len(memo[n].keys())):
+            memo[n-1][key] = "[]" + history
+        memo[n-2] = {}
+        for key, _ in enumerate(len(memo[n].keys())):
+            memo[n-2][key]= "[--]"+ history
+        
+        
+        print_out_piastrellature(n-1, "[]" + history) 
+        print_out_piastrellature(n-2, "[--]"+ history)
+"""
