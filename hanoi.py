@@ -39,3 +39,32 @@ print("Eseguo algoritmo...")
 hanoi(n, A, B,C)
 
 print_lists(A,B,C)
+
+
+
+"""
+soluzione francesco bazzani
+"""
+
+#creo la lista di caratteri
+def create_list_char(n):
+    return [chr(ch) for ch in range(ord('a'), ord('a')+n)]
+
+
+# Recursive Python function to solve the tower of hanoi
+  
+def TowerOfHanoi(n , source, destination, auxiliary):
+    if n==1:
+        print("Move disk 1 from source",source,"to destination",destination)
+        return
+    TowerOfHanoi(n-1, source, auxiliary, destination)
+    print("Move disk",n,"from source",source,"to destination",destination)
+    TowerOfHanoi(n-1, auxiliary, destination, source)
+          
+# Driver code
+n = 4
+TowerOfHanoi(n,'A','B','C') 
+# A, C, B are the name of rods
+  
+# Contributed By Dilip Jain
+
