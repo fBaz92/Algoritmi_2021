@@ -47,11 +47,12 @@ def trova_successivi(lista):
 
     Returns
     -------
-    list
-        restituisce una lista che contiene le liste dei prossimi panini che posso mangiare.
+    tuple
+        restituisce una tupla che contiene una lista di liste dei prossimi 
+        panini che posso mangiare e i rispettivi massimi.
         
     """
-    return [[element for element in lista[index:] if element < lista[index]] for index in range(len(lista))]
+    return [([element for element in lista[index:] if element < lista[index]], lista[index]) for index in range(len(lista))]
 
 
 def get_score(lista, massimo, score = 0):
@@ -79,19 +80,23 @@ def poldo2(lista, massimo = 0, contatore = 0):
     
     return tmp
         
+
+
+appoggio2 = []    
+def poldo3(lista, massimo = 0, contatore = 0):
     
+    global appoggio2
+    if len(lista) == 0:
+        return contatore
+    else:
+        tmp = trova_successivi(lista)
+        for coppia in tmp:
+            appoggio2.append(poldo3(coppia[0], coppia[1], contatore + 1))
+
+poldo3(e)
 
 
-print(poldo2(e))
-print(poldo2(b))
 
 
 
 
-#print(get_score(b, b[0]))
-
-#c = trova_successivi(b)
-
-
-#soluzione = (poldo(e))
-#print(soluzione)            
