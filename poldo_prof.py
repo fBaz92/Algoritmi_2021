@@ -53,8 +53,8 @@ def num_max_panini(lista,t=0,last_panino_index=None, score=0):
 def num_max_panini_memo(lista,t=0,last_panino_index=None, score=0, memo = {}, history = []):
 
     
-    if history in memo.keys():
-        return memo[history]
+    if tuple(history) in memo.keys():
+        return memo[tuple(history)]
         
     else:
         
@@ -64,9 +64,9 @@ def num_max_panini_memo(lista,t=0,last_panino_index=None, score=0, memo = {}, hi
                 return 0
             #prendo il caso maggiore tra mangiare il panino o non mangiare il panino
              
-            tmp = max(num_max_panini_memo(lista, t+1, None, 0, memo, history), num_max_panini_memo(lista, t+1,t, score+1, memo, [i for i in history].append(t)))
-            memo[history] = tmp
-            return memo[history] 
+            tmp = max(num_max_panini_memo(lista, t+1, None, 0, memo, history), num_max_panini_memo(lista, t+1,t, score+1, memo, history.copy().append(t)))
+            memo[tuple(history)] = tmp
+            return tmp 
             
             
         #altrimenti significa che ho mangiato il panino
@@ -74,7 +74,7 @@ def num_max_panini_memo(lista,t=0,last_panino_index=None, score=0, memo = {}, hi
             
             if t >= len(lista):
                 #ho scorso tutta la lista e non posso più magiare panini
-                memo[history] = score
+                memo[tuple(history)] = score
                 return score
             
             if lista[t] >= lista[last_panino_index]:
@@ -82,12 +82,12 @@ def num_max_panini_memo(lista,t=0,last_panino_index=None, score=0, memo = {}, hi
                 #e quindi proseguo richiamando un problema più piccolo
                  
                 tmp = num_max_panini_memo(lista, t+1, last_panino_index, score, memo)
-                memo[history] = tmp
+                memo[tuple(history)] = tmp
                 return tmp
                 
         
-            tmp = max(num_max_panini_memo(lista, t+1, last_panino_index, score, memo, history), num_max_panini_memo(lista, t+1, t, score+1, memo, [i for i in history].append(t)))
-            memo[history] = tmp
+            tmp = max(num_max_panini_memo(lista, t+1, last_panino_index, score, memo, history), num_max_panini_memo(lista, t+1, t, score+1, memo, history.copy().append(t)))
+            memo[tuple(history)] = tmp
             return tmp
    
    
