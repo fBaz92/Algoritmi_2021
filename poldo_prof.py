@@ -5,7 +5,7 @@ Created on Mon Apr 19 13:15:27 2021
 @author: franc
 """
 
-panino = [3,10,9,7,5,8,4]
+panino = [3,10,9,8,5,8,4]
 
 
 """
@@ -50,22 +50,35 @@ def num_max_panini(lista,t=0,last_panino_index=None, score=0):
         return max(num_max_panini(lista, t+1, last_panino_index, score), num_max_panini(lista, t+1, t, score+1))
     
     
-def num_max_panini_memo(lista,t=0,last_panino_index=None, score=0, memo = {}, history = []):
+def num_max_panini_memo(lista,t=0,last_panino_index="inf", score=0, memo = {}, history = []):
 
     
     if tuple(history) in memo.keys():
-        return memo[tuple(history)]
+        if tuple(history) == (): 
+            return 0
+        else:
+            return memo[tuple(history)]
+    
+   #else
         
-    else:
         
+        
+        
+        
+        
+        
+        """
         #guardo se ho mangiato o meno un panino e scelgo se non mangiare un panino
-        if last_panino_index == None:
+        if last_panino_index == "inf":
             if t >= len(lista):
                 return 0
             #prendo il caso maggiore tra mangiare il panino o non mangiare il panino
-             
-            tmp = max(num_max_panini_memo(lista, t+1, None, 0, memo, history), num_max_panini_memo(lista, t+1,t, score+1, memo, history.copy().append(t)))
+            
+            history_2 = history.copy()
+            history_2.append(t)
+            tmp = max(num_max_panini_memo(lista, t+1, "inf", 0, memo, history), num_max_panini_memo(lista, t+1,t, score+1, memo, history_2))
             memo[tuple(history)] = tmp
+            history_2 = []
             return tmp 
             
             
@@ -74,8 +87,12 @@ def num_max_panini_memo(lista,t=0,last_panino_index=None, score=0, memo = {}, hi
             
             if t >= len(lista):
                 #ho scorso tutta la lista e non posso più magiare panini
-                memo[tuple(history)] = score
-                return score
+                if tuple(history) == ():
+                    memo[("inf")] = score
+                    return score
+                else:
+                    memo[tuple(history)] = score
+                    return score
             
             if lista[t] >= lista[last_panino_index]:
                 #se trovo un panino più pesante non posso mangiarlo
@@ -84,12 +101,14 @@ def num_max_panini_memo(lista,t=0,last_panino_index=None, score=0, memo = {}, hi
                 tmp = num_max_panini_memo(lista, t+1, last_panino_index, score, memo)
                 memo[tuple(history)] = tmp
                 return tmp
-                
-        
-            tmp = max(num_max_panini_memo(lista, t+1, last_panino_index, score, memo, history), num_max_panini_memo(lista, t+1, t, score+1, memo, history.copy().append(t)))
+             
+            history_2 = history.copy()
+            history_2.append(t)        
+            tmp = max(num_max_panini_memo(lista, t+1, last_panino_index, score, memo, history), num_max_panini_memo(lista, t+1, t, score+1, memo, history_2))
             memo[tuple(history)] = tmp
+            history_2 = []
             return tmp
-   
+   """
    
    
    
